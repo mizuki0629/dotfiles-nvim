@@ -58,5 +58,12 @@ return {
                 },
             },
         })
+
+        require("lspconfig").ansiblels.setup({
+            on_attach = lsphandlers.on_attach,
+            flags = lsphandlers.lsp_flags,
+            capabilities = lsphandlers.capabilities,
+        })
+
     end
 }

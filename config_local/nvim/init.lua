@@ -3,6 +3,7 @@ vim.cmd([[syntax on]])
 vim.g.mapleader = " "
 vim.opt.mouse = nil
 vim.opt.number = true
+vim.opt.termguicolors = true
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
@@ -28,4 +29,4 @@ vim.g.python3_host_prog = venvpath .. "/bin/python"
 
 require("plugin")
 require("core.keymaps")
-require("core.terminal")
+-- require("core.terminal")

@@ -1,6 +1,9 @@
-vim.cmd [[TSUpdate]]
+vim.cmd([[TSUpdate]])
 
-require'nvim-treesitter.configs'.setup {
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+require("nvim-treesitter.configs").setup({
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
     ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
 
@@ -22,4 +25,4 @@ require'nvim-treesitter.configs'.setup {
         extended_mode = true,
         max_file_lines = nil,
     },
-}
+})

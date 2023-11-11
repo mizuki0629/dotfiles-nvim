@@ -3,6 +3,27 @@ local actions = require("telescope.actions")
 local z_utils = require("telescope._extensions.zoxide.utils")
 require('neoclip').setup()
 
+local open_in_nvim_tree = function(prompt_bufnr)
+    local action_state = require "telescope.actions.state"
+    local Path = require "plenary.path"
+
+    local entry = action_state.get_selected_entry()[1]
+    local entry_path = Path:new(entry):parent():absolute()
+    actions._close(prompt_bufnr, true)
+    entry_path = Path:new(entry):parent():absolute()
+    entry_path = entry_path:gsub("\\", "\\\\")
+
+    vim.cmd("NvimTreeClose")
+    vim.cmd("NvimTreeOpen " .. entry_path)
+
+    local file_name = nil
+    for s in string.gmatch(entry, "[^/]+") do
+        file_name = s
+    end
+
+    vim.cmd("/" .. file_name)
+end
+
 local telescope = require("telescope")
 telescope.setup({
     defaults = {
@@ -38,10 +59,6 @@ telescope.setup({
         color_devicons = true,
         use_less = true,
         set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-        file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-        grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-        qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-        buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
         mappings = {
             i = {
                 ["<C-j>"] = actions.move_selection_next,
@@ -49,6 +66,7 @@ telescope.setup({
                 ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
                 ["<esc>"] = actions.close,
                 ["<CR>"] = actions.select_default + actions.center,
+                ["<C-s>"] = open_in_nvim_tree,
             },
             n = {
                 ["<C-j>"] = actions.move_selection_next,
@@ -58,16 +76,6 @@ telescope.setup({
         },
     },
     extentions = {
-        repo = {
-            list = {
-                fd_opts = {
-                    "--no-ignore-vcs",
-                },
-                search_dirs = {
-                    "~/.local/share/nvim/lazy",
-                },
-            },
-        },
         bookmarks = {
             selected_browser = "chrome"
         },
@@ -116,19 +124,23 @@ telescope.setup({
     },
 })
 
-telescope.load_extension('repo')
 telescope.load_extension('bookmarks')
 telescope.load_extension('zoxide')
 telescope.load_extension('neoclip')
 telescope.load_extension('file_browser')
+telescope.load_extension('frecency')
+telescope.load_extension('notify')
 
 require("which-key").register({
     f = {
         name = "telescope",
-        f = { builtin.find_files, "Find Files" },
-        g = { builtin.live_grep, "Live Grep" },
+        f = { "<cmd>Telescope frecency<cr>", "frecency" },
+        w = { "<cmd>Telescope frecency workspace=CWD<cr>", "frecency cwd" },
+        ["/"] = { builtin.live_grep, "Live Grep" },
         b = { builtin.buffers, "Buffers" },
-        c = { builtin.git_commits, "git commits" },
+        g = {
+            c = { builtin.git_commits, "git commits" }
+        },
         z = { telescope.extensions.zoxide.list, "Zoxide List" },
     },
 }, { prefix = "<leader>" })

@@ -1,8 +1,8 @@
 local signs = {
     { name = "DiagnosticSignError", text = " " },
-    { name = "DiagnosticSignWarn",  text = " " },
-    { name = "DiagnosticSignHint",  text = " " },
-    { name = "DiagnosticSignInfo",  text = " " },
+    { name = "DiagnosticSignWarn", text = " " },
+    { name = "DiagnosticSignHint", text = " " },
+    { name = "DiagnosticSignInfo", text = " " },
 }
 
 for _, sign in ipairs(signs) do
@@ -75,7 +75,7 @@ local function lsp_keymaps(bufnr)
             ca = { vim.lsp.buf.code_action, "Code Action" },
         },
         K = { vim.lsp.buf.hover, "Hover LSP" },
-    }, { noremap = true, silent = true, buffer = bufnr })
+        }, { noremap = true, silent = true, buffer = bufnr })
 end
 
 -- Use an on_attach function to only map the following keys
@@ -91,7 +91,9 @@ local function on_attach(client, bufnr)
     lsp_keymaps(bufnr)
 
     -- Format on save
-    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+    if client.name == "rust_analyzer" then
+        vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+    end
 
     local status_ok, illuminate = pcall(require, "illuminate")
     if not status_ok then
