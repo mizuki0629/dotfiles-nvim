@@ -29,4 +29,3 @@ vim.g.python3_host_prog = venvpath .. "/bin/python"
 
 require("plugin")
 require("core.keymaps")
--- require("core.terminal")

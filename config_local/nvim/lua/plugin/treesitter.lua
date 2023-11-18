@@ -1,4 +1,4 @@
-vim.cmd([[TSUpdate]])
+-- vim.cmd([[TSUpdate]])
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"

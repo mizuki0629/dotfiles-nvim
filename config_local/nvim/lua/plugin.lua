@@ -17,132 +17,208 @@ local config = function(name)
     end
 end
 
-local use = function(name)
-    return require("plugin." .. name)
-end
-
 return require("lazy").setup({
-    use("nordtheme"),
-    use("which-key"),
-    use("mason"),
-    use("lspconfig"),
+    {
+        "gbprod/nord.nvim",
+        lazy = false,
+        priority = 1000,
+        config = config("nordtheme"),
+    },
+    {
+        'williamboman/mason.nvim',
+        build = ":MasonUpdate", -- :MasonUpdate updates registry contents
+        cmd = {
+            "Mason",
+            "MasonInstall",
+            "MasonUninstall",
+            "MasonUninstallAll",
+            "MasonLog",
+            "MasonUpdate",
+        },
+        config = config("mason"),
+    },
+    {
+        'neovim/nvim-lspconfig',
+        dependencies = {
+            'williamboman/mason-lspconfig.nvim',
+            "hrsh7th/cmp-nvim-lsp",
+        },
+        event = "VeryLazy",
+        config = config("lspconfig"),
+    },
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        config = config("which-key"),
+    },
 
     -- LSP Progress UI
     {
         "j-hui/fidget.nvim",
         tag = "legacy",
+        event = "VeryLazy",
         config = true,
     },
-    use("cmp"),
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lua",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline",
+            "hrsh7th/cmp-vsnip",
+            "hrsh7th/vim-vsnip",
+        },
+        event = "InsertEnter",
+        config = config("cmp")
+    },
 
     -- PowerLine
     {
         "nvim-lualine/lualine.nvim",
-        config = config("lualine"),
         dependencies = {
             "arkav/lualine-lsp-progress",
         },
+        config = config("lualine"),
     },
     "nastevens/vim-cargo-make",
     -- Filer
     {
         "nvim-tree/nvim-tree.lua",
-        config = config("nvim-tree"),
         dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = config("nvim-tree"),
     },
 
     {
         "nvim-treesitter/nvim-treesitter",
+        dependencies = {
+            "p00f/nvim-ts-rainbow",
+        },
+        build = ":TSUpdate",
+        event = "VeryLazy",
         config = config("treesitter"),
     },
     {
-        "nvim-treesitter/playground",
-        build = ":TSInstall query",
-        config = config("playground"),
-    },
-    {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.4",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "folke/which-key.nvim",
             "jvgrootveld/telescope-zoxide",
-            "dhruvmanila/browser-bookmarks.nvim",
             "nvim-telescope/telescope-fzf-native.nvim",
             "AckslD/nvim-neoclip.lua",
             "nvim-telescope/telescope-file-browser.nvim",
             "nvim-telescope/telescope-frecency.nvim",
         },
+        tag = "0.1.4",
+        init = function()
+            require("which-key").register({
+                f = {
+                    name = "telescope",
+                    f = { "<cmd>Telescope frecency<cr>", "frecency" },
+                    o = { "<cmd>Telescope find_files find_command=rg,--files,--hidden,--glob,!*.git<CR>", "find files" },
+                    ["/"] = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
+                    b = { "<cmd>Telescope buffers<cr>", "Buffers" },
+                    z = { "<cmd>Telescope zoxide list<cr>", "Zoxide" },
+                },
+            }, { prefix = "<leader>" })
+        end,
+        cmd = "Telescope",
         config = config("telescope"),
     },
-    use("null-ls"),
-    use("mason-null-ls"),
+    {
+        "jose-elias-alvarez/null-ls.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "jay-babu/mason-null-ls.nvim",
+        },
+        event = { "BufReadPre", "BufNewFile" },
+        config = config("null-ls"),
+    },
     {
         "akinsho/bufferline.nvim",
-        version = "*",
         dependencies = {
             "nvim-tree/nvim-web-devicons",
             "folke/which-key.nvim",
         },
+        version = "*",
         config = config("bufferline"),
     },
-    "p00f/nvim-ts-rainbow",
     {
         "lukas-reineke/indent-blankline.nvim",
+        event = "VeryLazy",
         config = config("indent-blankline"),
     },
     {
         "lewis6991/gitsigns.nvim",
-        dependencies = { "petertriho/nvim-scrollbar" },
+        dependencies = {
+            "petertriho/nvim-scrollbar"
+        },
+        event = "VeryLazy",
         config = config("gitsigns"),
     },
     {
         "numToStr/Comment.nvim",
+        event = "VeryLazy",
         config = config("comment"),
     },
-    use("aerial"),
+    {
+        'stevearc/aerial.nvim',
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        },
+        keys = { "<leader>a", "<cmd>AerialToggle!<cr>", mode = "n", desc = "Toggle Aerial" },
+        config = config("aerial"),
+    },
     {
         "petertriho/nvim-scrollbar",
+        event = "VeryLazy",
         config = config("nvim-scrollbar"),
     },
     {
         "mvllow/modes.nvim",
         tag = "v0.2.0",
+        event = "VeryLazy",
         config = config("modes"),
     },
     {
         "kevinhwang91/nvim-hlslens",
-        dependencies = { "petertriho/nvim-scrollbar" },
+        dependencies = {
+            "petertriho/nvim-scrollbar"
+        },
+        event = "VeryLazy",
         config = config("nvim-hlslens"),
     },
     {
         "github/copilot.vim",
+        event = "VeryLazy",
     },
     {
         "rktjmp/lush.nvim",
     },
     {
         "mfussenegger/nvim-ansible",
+        event = "VeryLazy",
     },
     {
         'rcarriga/nvim-notify',
+        event = "VeryLazy",
         config = config("notify"),
     },
     {
         "folke/noice.nvim",
-        event = "VeryLazy",
-        opts = {
-            -- add any options here
-        },
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
         },
+        event = "VeryLazy",
         config = config("noice"),
     },
     {
-        'akinsho/toggleterm.nvim', 
-        version = "*", 
+        'akinsho/toggleterm.nvim',
+        version = "*",
+        event = "VeryLazy",
         config = config("toggleterm"),
-    }
+    },
 })

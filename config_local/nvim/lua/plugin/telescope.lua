@@ -31,7 +31,7 @@ telescope.setup({
             width = 0.9,
             prompt_position = "top",
             preview_cutoff = 120,
-            horizontal = { mirror = true },
+            horizontal = { mirror = false },
             vertical = { mirror = true },
         },
         find_command = {
@@ -41,8 +41,9 @@ telescope.setup({
             "--line-number",
             "--column",
             "--smart-case",
+            "-uu",
         },
-        prompt_prefix = " ",
+        prompt_prefix = "🔍",
         selection_caret = " ",
         entry_prefix = "  ",
         initial_mode = "insert",
@@ -76,9 +77,6 @@ telescope.setup({
         },
     },
     extentions = {
-        bookmarks = {
-            selected_browser = "chrome"
-        },
         zoxide = {
             {
                 prompt_title = "[ Zoxide List ]",
@@ -119,28 +117,13 @@ telescope.setup({
         },
         file_browser = {
             -- disables netrw and use telescope-file-browser in its place
-            hijack_netrw = true,
+            hijack_netrw = false,
         },
     },
 })
 
-telescope.load_extension('bookmarks')
 telescope.load_extension('zoxide')
 telescope.load_extension('neoclip')
 telescope.load_extension('file_browser')
 telescope.load_extension('frecency')
 telescope.load_extension('notify')
-
-require("which-key").register({
-    f = {
-        name = "telescope",
-        f = { "<cmd>Telescope frecency<cr>", "frecency" },
-        w = { "<cmd>Telescope frecency workspace=CWD<cr>", "frecency cwd" },
-        ["/"] = { builtin.live_grep, "Live Grep" },
-        b = { builtin.buffers, "Buffers" },
-        g = {
-            c = { builtin.git_commits, "git commits" }
-        },
-        z = { telescope.extensions.zoxide.list, "Zoxide List" },
-    },
-}, { prefix = "<leader>" })
