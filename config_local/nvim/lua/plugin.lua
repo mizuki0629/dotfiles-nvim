@@ -82,7 +82,6 @@ return require("lazy").setup({
         },
         config = config("lualine"),
     },
-    "nastevens/vim-cargo-make",
     -- Filer
     {
         "nvim-tree/nvim-tree.lua",
@@ -198,10 +197,6 @@ return require("lazy").setup({
         "rktjmp/lush.nvim",
     },
     {
-        "mfussenegger/nvim-ansible",
-        event = "VeryLazy",
-    },
-    {
         'rcarriga/nvim-notify',
         event = "VeryLazy",
         config = config("notify"),
@@ -220,5 +215,12 @@ return require("lazy").setup({
         version = "*",
         event = "VeryLazy",
         config = config("toggleterm"),
+    },
+    {
+        "nastevens/vim-cargo-make",
+    },
+    {
+        "mfussenegger/nvim-ansible",
+        event = "VeryLazy",
     },
 })

@@ -38,7 +38,7 @@ local function on_attach(bufnr)
     vim.keymap.set('n', '[e',    api.node.navigate.diagnostics.prev,    opts('Prev Diagnostic'))
     vim.keymap.set('n', 'F',     api.live_filter.clear,                 opts('Clean Filter'))
     vim.keymap.set('n', 'f',     api.live_filter.start,                 opts('Filter'))
-    vim.keymap.set('n', 'g?',    api.tree.toggle_help,                  opts('Help'))
+    vim.keymap.set('n', '?',     api.tree.toggle_help,                  opts('Help'))
     vim.keymap.set('n', 'gy',    api.fs.copy.absolute_path,             opts('Copy Absolute Path'))
     vim.keymap.set('n', 'H',     api.tree.toggle_hidden_filter,         opts('Toggle Dotfiles'))
     vim.keymap.set('n', 'I',     api.tree.toggle_gitignore_filter,      opts('Toggle Git Ignore'))
@@ -65,6 +65,29 @@ end
 
 require("nvim-tree").setup({
     on_attach = on_attach,
+    sync_root_with_cwd = true,
+    renderer = {
+        highlight_git = true,
+        highlight_diagnostics = true,
+        icons = {
+            web_devicons = {
+                file = {
+                    enable = true,
+                    color = true,
+                },
+                folder = {
+                    enable = true,
+                    color = true,
+                },
+            },
+        },
+    },
+    diagnostics = {
+        enable = false,
+    },
+    filters = {
+        git_ignored = false,
+    },
 })
 
 vim.keymap.set('n', '<leader>p', ':NvimTreeFindFileToggle<CR>')

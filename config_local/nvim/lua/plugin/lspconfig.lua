@@ -1,11 +1,8 @@
-require("mason-lspconfig").setup({
-    ensure_installed = {
-        "lua_ls",
-        "rust_analyzer",
-        "ansiblels", "gopls" 
-    }
-})
 local lsphandlers = require("plugin.lsphandlers")
+local ensure_installed = {
+    "lua_ls",
+    "rust_analyzer",
+}
 
 require("lspconfig").lua_ls.setup({
     on_attach = lsphandlers.on_attach,
@@ -54,14 +51,26 @@ require("lspconfig").rust_analyzer.setup({
     },
 })
 
-require("lspconfig").ansiblels.setup({
-    on_attach = lsphandlers.on_attach,
-    flags = lsphandlers.lsp_flags,
-    capabilities = lsphandlers.capabilities,
-})
+if vim.fn.executable("go") == 1 then
+    table.insert(ensure_installed, "gopls")
 
-require("lspconfig").gopls.setup({
-    on_attach = lsphandlers.on_attach,
-    flags = lsphandlers.lsp_flags,
-    capabilities = lsphandlers.capabilities,
+    require("lspconfig").gopls.setup({
+        on_attach = lsphandlers.on_attach,
+        flags = lsphandlers.lsp_flags,
+        capabilities = lsphandlers.capabilities,
+    })
+end
+
+if vim.fn.executable("ansible") == 1 then
+    table.insert(ensure_installed, "ansiblels")
+
+    require("lspconfig").ansiblels.setup({
+        on_attach = lsphandlers.on_attach,
+        flags = lsphandlers.lsp_flags,
+        capabilities = lsphandlers.capabilities,
+    })
+end
+
+require("mason-lspconfig").setup({
+    ensure_installed = ensure_installed
 })
