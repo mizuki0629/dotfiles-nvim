@@ -8,7 +8,7 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.clipboard = "unnamedplus"
-if vim.fn.executable("python3") then
+if vim.fn.executable("python3") == 1 then
     local venvpath = vim.fn.stdpath("data") .. "/venv"
     if not vim.loop.fs_stat(venvpath) then
         if vim.fn.has("linux") == 1 then
@@ -19,7 +19,7 @@ if vim.fn.executable("python3") then
                 "venv",
                 venvpath,
             })
-            if vim.fn.executable(venvpath .. "/bin/pip3") then
+            if vim.fn.executable(venvpath .. "/bin/pip3") == 1 then
                 vim.fn.system({
                     venvpath .. "/bin/pip3",
                     "install",

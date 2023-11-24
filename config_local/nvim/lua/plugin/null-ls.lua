@@ -5,7 +5,7 @@ local null_ls = require("null-ls")
 local source = {
     null_ls.builtins.formatting.stylua, -- lua formatter
 }
-if vim.fn.executable("python3") then
+if vim.fn.executable("python3") == 1 then
     table.insert(ensure_installed, "black") -- python formatter
     table.insert(ensure_installed, "isort") -- python import sort
     table.insert(ensure_installed, "flake8") -- python linter
@@ -13,7 +13,7 @@ if vim.fn.executable("python3") then
     table.insert(source, null_ls.builtins.formatting.isort) -- python import sort
     table.insert(source, null_ls.builtins.diagnostics.flake8) -- python linter
 end
-if vim.fn.executable("go") then
+if vim.fn.executable("go") == 1 then
     table.insert(ensure_installed, "gofumpt") -- go formatter
     table.insert(ensure_installed, "goimports") -- go import sort
     table.insert(ensure_installed, "golangci-lint") -- go linter
