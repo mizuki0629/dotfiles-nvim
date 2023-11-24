@@ -5,7 +5,7 @@ local null_ls = require("null-ls")
 local source = {
     null_ls.builtins.formatting.stylua, -- lua formatter
 }
-if vim.fn.executable("python3") == 1 then
+if vim.fn.executable("python3") == 1 and vim.fn.executable("pip3") == 1 then
     table.insert(ensure_installed, "black") -- python formatter
     table.insert(ensure_installed, "isort") -- python import sort
     table.insert(ensure_installed, "flake8") -- python linter
