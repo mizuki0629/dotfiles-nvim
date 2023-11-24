@@ -8,7 +8,7 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.clipboard = "unnamedplus"
-if vim.fn.executable("python3") and vim.fn.exists("/.dockerenv") == 0 then
+if vim.fn.executable("python3") then
     local venvpath = vim.fn.stdpath("data") .. "/venv"
     if not vim.loop.fs_stat(venvpath) then
         if vim.fn.has("linux") == 1 then
@@ -19,11 +19,13 @@ if vim.fn.executable("python3") and vim.fn.exists("/.dockerenv") == 0 then
                 "venv",
                 venvpath,
             })
-            vim.fn.system({
-                venvpath .. "/bin/pip3",
-                "install",
-                "pynvim",
-            })
+            if vim.fn.executable(venvpath .. "/bin/pip3") then
+                vim.fn.system({
+                    venvpath .. "/bin/pip3",
+                    "install",
+                    "pynvim",
+                })
+            end
         end
     end
     vim.g.python3_host_prog = venvpath .. "/bin/python"
