@@ -1,14 +1,18 @@
-require("mason-null-ls").setup({
-    ensure_installed = {
-        "golangci-lint", -- go linter
-        "gofumpt", -- go formatter
-        "goimports", -- go import sort
-        "black", -- python formatter
-        "isort", -- python import sort
-        "flake8", -- python linter
+local ensure_installed = {
         "stylua", -- lua formatter
-        -- "selene",
-    }
+}
+if vim.fn.executable("python3") then
+    table.insert(ensure_installed, "black") -- python formatter
+    table.insert(ensure_installed, "isort") -- python import sort
+    table.insert(ensure_installed, "flake8") -- python linter
+end
+if vim.fn.executable("go") then
+    table.insert(ensure_installed, "gofumpt") -- go formatter
+    table.insert(ensure_installed, "goimports") -- go import sort
+    table.insert(ensure_installed, "golangci-lint") -- go linter
+end
+require("mason-null-ls").setup({
+    ensure_installed = ensure_installed
 })
 
 local null_ls = require("null-ls")
