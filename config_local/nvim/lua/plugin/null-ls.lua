@@ -8,10 +8,10 @@ local source = {
 if vim.fn.executable("python3") == 1 and vim.fn.executable("pip3") == 1 then
     table.insert(ensure_installed, "black") -- python formatter
     table.insert(ensure_installed, "isort") -- python import sort
-    table.insert(ensure_installed, "flake8") -- python linter
+    table.insert(ensure_installed, "ruff") -- python linter
     table.insert(source, null_ls.builtins.formatting.black) -- python formatter
     table.insert(source, null_ls.builtins.formatting.isort) -- python import sort
-    table.insert(source, null_ls.builtins.diagnostics.flake8) -- python linter
+    table.insert(source, null_ls.builtins.diagnostics.ruff) -- python linter
 end
 if vim.fn.executable("go") == 1 then
     table.insert(ensure_installed, "gofumpt") -- go formatter

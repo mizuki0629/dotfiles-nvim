@@ -43,7 +43,7 @@ return require("lazy").setup({
             'williamboman/mason-lspconfig.nvim',
             "hrsh7th/cmp-nvim-lsp",
         },
-        event = "VeryLazy",
+        event = { "BufReadPre", "BufNewFile" },
         config = config("lspconfig"),
     },
     {
@@ -191,7 +191,7 @@ return require("lazy").setup({
     },
     {
         "github/copilot.vim",
-        event = "VeryLazy",
+        event = { "BufReadPre", "BufNewFile" },
     },
     {
         "rktjmp/lush.nvim",
@@ -222,5 +222,14 @@ return require("lazy").setup({
     {
         "mfussenegger/nvim-ansible",
         event = "VeryLazy",
+    },
+    {
+        'norcalli/nvim-colorizer.lua',
+        cmd = {
+            "ColorizerAttachToBuffer",
+            "ColorizerDetachFromBuffer",
+            "ColorizerReloadAllBuffers",
+            "ColorizerToggle",
+        }
     },
 })

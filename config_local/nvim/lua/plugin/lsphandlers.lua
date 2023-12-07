@@ -29,13 +29,13 @@ local config = {
 
 vim.diagnostic.config(config)
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-})
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-})
+-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+--     border = "rounded",
+-- })
+--
+-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+--     border = "rounded",
+-- })
 
 local function lsp_keymaps(bufnr)
     -- Enable completion triggered by <c-x><c-o>
@@ -97,6 +97,7 @@ local function on_attach(client, bufnr)
 
     local status_ok, illuminate = pcall(require, "illuminate")
     if not status_ok then
+        error("Failed to load illuminate" .. illuminate)
         return
     end
     illuminate.on_attach(client)
