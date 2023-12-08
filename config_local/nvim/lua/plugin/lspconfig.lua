@@ -16,14 +16,14 @@ if vim.fn.executable("python") == 1 then
 end
 
 require("mason-lspconfig").setup({
-    ensure_installed = ensure_installed
+    ensure_installed = ensure_installed,
 })
 
 local lsphandlers = require("plugin.lsphandlers")
 require("mason-lspconfig").setup_handlers({
-    function (server_name) -- default handler (optional)
+    function(server_name) -- default handler (optional)
         require("lspconfig")[server_name].setup({
-            on_attach = lsphandlers.on_attach,
+            on_attach = lsphandlers.on_attach({ is_format_on_save = true }),
             flags = lsphandlers.lsp_flags,
             capabilities = lsphandlers.capabilities,
         })
@@ -31,7 +31,7 @@ require("mason-lspconfig").setup_handlers({
 
     lua_ls = function()
         require("lspconfig").lua_ls.setup({
-            on_attach = lsphandlers.on_attach,
+            on_attach = lsphandlers.on_attach({ is_format_on_save = true }),
             flags = lsphandlers.lsp_flags,
             capabilities = lsphandlers.capabilities,
             settings = {
@@ -57,7 +57,7 @@ require("mason-lspconfig").setup_handlers({
     end,
     rust_analyzer = function()
         require("lspconfig").rust_analyzer.setup({
-            on_attach = lsphandlers.on_attach,
+            on_attach = lsphandlers.on_attach({ is_format_on_save = true }),
             flags = lsphandlers.lsp_flags,
             capabilities = lsphandlers.capabilities,
             settings = {

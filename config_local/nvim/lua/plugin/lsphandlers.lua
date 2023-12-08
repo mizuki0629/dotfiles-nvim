@@ -75,32 +75,34 @@ local function lsp_keymaps(bufnr)
             ca = { vim.lsp.buf.code_action, "Code Action" },
         },
         K = { vim.lsp.buf.hover, "Hover LSP" },
-        }, { noremap = true, silent = true, buffer = bufnr })
+    }, { noremap = true, silent = true, buffer = bufnr })
 end
 
 -- Use an on_attach function to only map the following keys
-local function on_attach(client, bufnr)
-    if client.name == "tsserver" then
-        client.server_capabilities.documentFormattingProvider = false
-    end
+local function on_attach(args)
+    return function(client, bufnr)
+        if client.name == "tsserver" then
+            client.server_capabilities.documentFormattingProvider = false
+        end
 
-    if client.name == "sumneko_lua" then
-        client.server_capabilities.documentFormattingProvider = false
-    end
+        if client.name == "sumneko_lua" then
+            client.server_capabilities.documentFormattingProvider = false
+        end
 
-    lsp_keymaps(bufnr)
+        lsp_keymaps(bufnr)
 
-    -- Format on save
-    if client.name == "rust_analyzer" then
-        vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
-    end
+        -- Format on save
+        if args.is_format_on_save then
+            vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+        end
 
-    local status_ok, illuminate = pcall(require, "illuminate")
-    if not status_ok then
-        error("Failed to load illuminate" .. illuminate)
-        return
+        local status_ok, illuminate = pcall(require, "illuminate")
+        if not status_ok then
+            error("Failed to load illuminate" .. illuminate)
+            return
+        end
+        illuminate.on_attach(client)
     end
-    illuminate.on_attach(client)
 end
 
 local lsp_flags = {
