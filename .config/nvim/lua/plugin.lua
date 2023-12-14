@@ -25,7 +25,7 @@ return require("lazy").setup({
         config = config("nordtheme"),
     },
     {
-        'williamboman/mason.nvim',
+        "williamboman/mason.nvim",
         build = ":MasonUpdate", -- :MasonUpdate updates registry contents
         cmd = {
             "Mason",
@@ -38,9 +38,9 @@ return require("lazy").setup({
         config = config("mason"),
     },
     {
-        'neovim/nvim-lspconfig',
+        "neovim/nvim-lspconfig",
         dependencies = {
-            'williamboman/mason-lspconfig.nvim',
+            "williamboman/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
         },
         event = { "BufReadPre", "BufNewFile" },
@@ -71,7 +71,7 @@ return require("lazy").setup({
             "hrsh7th/vim-vsnip",
         },
         event = "InsertEnter",
-        config = config("cmp")
+        config = config("cmp"),
     },
 
     -- PowerLine
@@ -126,7 +126,7 @@ return require("lazy").setup({
         config = config("telescope"),
     },
     {
-        "jose-elias-alvarez/null-ls.nvim",
+        "nvimtools/none-ls.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "jay-babu/mason-null-ls.nvim",
@@ -151,7 +151,7 @@ return require("lazy").setup({
     {
         "lewis6991/gitsigns.nvim",
         dependencies = {
-            "petertriho/nvim-scrollbar"
+            "petertriho/nvim-scrollbar",
         },
         event = "VeryLazy",
         config = config("gitsigns"),
@@ -162,10 +162,10 @@ return require("lazy").setup({
         config = config("comment"),
     },
     {
-        'stevearc/aerial.nvim',
+        "stevearc/aerial.nvim",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons"
+            "nvim-tree/nvim-web-devicons",
         },
         keys = { "<leader>a", "<cmd>AerialToggle!<cr>", mode = "n", desc = "Toggle Aerial" },
         config = config("aerial"),
@@ -184,7 +184,7 @@ return require("lazy").setup({
     {
         "kevinhwang91/nvim-hlslens",
         dependencies = {
-            "petertriho/nvim-scrollbar"
+            "petertriho/nvim-scrollbar",
         },
         event = "VeryLazy",
         config = config("nvim-hlslens"),
@@ -197,7 +197,7 @@ return require("lazy").setup({
         "rktjmp/lush.nvim",
     },
     {
-        'rcarriga/nvim-notify',
+        "rcarriga/nvim-notify",
         event = "VeryLazy",
         config = config("notify"),
     },
@@ -211,7 +211,7 @@ return require("lazy").setup({
         config = config("noice"),
     },
     {
-        'akinsho/toggleterm.nvim',
+        "akinsho/toggleterm.nvim",
         version = "*",
         event = "VeryLazy",
         config = config("toggleterm"),
@@ -224,12 +224,12 @@ return require("lazy").setup({
         event = "VeryLazy",
     },
     {
-        'norcalli/nvim-colorizer.lua',
+        "norcalli/nvim-colorizer.lua",
         cmd = {
             "ColorizerAttachToBuffer",
             "ColorizerDetachFromBuffer",
             "ColorizerReloadAllBuffers",
             "ColorizerToggle",
-        }
+        },
     },
 })
