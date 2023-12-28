@@ -20,8 +20,7 @@ if vim.fn.executable("python3") == 1 then
             venvpath,
         })
         vim.fn.system({
-            "/usr/bin/env",
-            "python3",
+            venvpath .. "/bin/python",
             "-m",
             "pip",
             "install",
