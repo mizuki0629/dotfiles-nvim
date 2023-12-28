@@ -38,13 +38,42 @@ return require("lazy").setup({
         config = config("mason"),
     },
     {
+        "jay-babu/mason-null-ls.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "nvimtools/none-ls.nvim",
+        },
+        event = { "BufReadPre", "BufNewFile" },
+        opts = {
+            automatic_installation = true,
+        },
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+        },
+        event = { "BufReadPre", "BufNewFile" },
+        opts = {
+            automatic_installation = true,
+        },
+    },
+    {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "williamboman/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
+            -- "nvimtools/none-ls.nvim", -- for load order
         },
         event = { "BufReadPre", "BufNewFile" },
         config = config("lspconfig"),
+    },
+    {
+        "nvimtools/none-ls.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        event = { "BufReadPre", "BufNewFile" },
+        config = config("null-ls"),
     },
     {
         "folke/which-key.nvim",
@@ -124,15 +153,6 @@ return require("lazy").setup({
         end,
         cmd = "Telescope",
         config = config("telescope"),
-    },
-    {
-        "nvimtools/none-ls.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "jay-babu/mason-null-ls.nvim",
-        },
-        event = { "BufReadPre", "BufNewFile" },
-        config = config("null-ls"),
     },
     {
         "akinsho/bufferline.nvim",
