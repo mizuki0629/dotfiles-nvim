@@ -12,7 +12,7 @@ end
 local config = {
     virtual_text = true, -- disable virtual text
     signs = {
-        active = signs,  -- show signs
+        active = signs, -- show signs
     },
     update_in_insert = false,
     underline = true,
@@ -120,9 +120,21 @@ local function default_handler(server_name)
     })
 end
 
+local function make_handler(settings)
+    return function(server_name)
+        require("lspconfig")[server_name].setup({
+            on_attach = on_attach({ is_format_on_save = true }),
+            flags = lsp_flags,
+            capabilities = capabilities,
+            settings = settings,
+        })
+    end
+end
+
 return {
     capabilities = capabilities,
     lsp_flags = lsp_flags,
     on_attach = on_attach,
     default_handler = default_handler,
+    make_handler = make_handler,
 }

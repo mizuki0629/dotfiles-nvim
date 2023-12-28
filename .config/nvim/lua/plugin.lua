@@ -44,9 +44,7 @@ return require("lazy").setup({
             "nvimtools/none-ls.nvim",
         },
         event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            automatic_installation = true,
-        },
+        config = config("null-ls"),
     },
     {
         "williamboman/mason-lspconfig.nvim",
@@ -54,18 +52,14 @@ return require("lazy").setup({
             "williamboman/mason.nvim",
         },
         event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            automatic_installation = true,
-        },
+        config = config("lspconfig"),
     },
     {
         "neovim/nvim-lspconfig",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
-            -- "nvimtools/none-ls.nvim", -- for load order
         },
         event = { "BufReadPre", "BufNewFile" },
-        config = config("lspconfig"),
     },
     {
         "nvimtools/none-ls.nvim",
@@ -73,7 +67,6 @@ return require("lazy").setup({
             "nvim-lua/plenary.nvim",
         },
         event = { "BufReadPre", "BufNewFile" },
-        config = config("null-ls"),
     },
     {
         "folke/which-key.nvim",

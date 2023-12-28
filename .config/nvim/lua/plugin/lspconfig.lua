@@ -1,10 +1,27 @@
-local lsphandlers = require("plugin.lsphandlers")
+local ensure_installed = {
+    "lua_ls",
+}
 
-require("lspconfig").lua_ls.setup({
-    on_attach = lsphandlers.on_attach({ is_format_on_save = true }),
-    flags = lsphandlers.lsp_flags,
-    capabilities = lsphandlers.capabilities,
-    settings = {
+if vim.fn.executable("go") == 1 then
+    table.insert(ensure_installed, "gopls")
+end
+
+if vim.fn.executable("ansible") == 1 then
+    table.insert(ensure_installed, "ansiblels")
+end
+
+if vim.fn.executable("python") == 1 then
+    table.insert(ensure_installed, "pyright")
+end
+
+require("mason-lspconfig").setup({
+    ensure_installed = ensure_installed,
+})
+
+local lsphandlers = require("plugin.lsphandlers")
+require("mason-lspconfig").setup_handlers({
+    lsphandlers.default_handler,
+    lua_ls = lsphandlers.make_handler({
         Lua = {
             runtime = {
                 version = "LuaJIT",
@@ -22,14 +39,8 @@ require("lspconfig").lua_ls.setup({
                 enable = false,
             },
         },
-    },
-})
-
-require("lspconfig").rust_analyzer.setup({
-    on_attach = lsphandlers.on_attach({ is_format_on_save = true }),
-    flags = lsphandlers.lsp_flags,
-    capabilities = lsphandlers.capabilities,
-    settings = {
+    }),
+    rust_analyzer = lsphandlers.make_handler({
         ["rust-analyzer"] = {
             checkOnSave = {
                 command = "clippy",
@@ -38,17 +49,5 @@ require("lspconfig").rust_analyzer.setup({
                 enable = true,
             },
         },
-    },
+    }),
 })
-
-if vim.fn.executable("go") == 1 then
-    lsphandlers.default_handler("gopls")
-end
-
-if vim.fn.executable("ansible") == 1 then
-    lsphandlers.default_handler("ansiblels")
-end
-
-if vim.fn.executable("python") == 1 then
-    lsphandlers.default_handler("pyright")
-end
