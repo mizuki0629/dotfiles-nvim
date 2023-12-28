@@ -12,7 +12,7 @@ end
 local config = {
     virtual_text = true, -- disable virtual text
     signs = {
-        active = signs, -- show signs
+        active = signs,  -- show signs
     },
     update_in_insert = false,
     underline = true,
@@ -92,7 +92,7 @@ local function on_attach(args)
         lsp_keymaps(bufnr)
 
         -- Format on save
-        if args.is_format_on_save then
+        if args["is_format_on_save"] then
             vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
         end
 
@@ -112,8 +112,17 @@ local lsp_flags = {
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+local function default_handler(server_name)
+    require("lspconfig")[server_name].setup({
+        on_attach = on_attach({ is_format_on_save = true }),
+        flags = lsp_flags,
+        capabilities = capabilities,
+    })
+end
+
 return {
     capabilities = capabilities,
     lsp_flags = lsp_flags,
     on_attach = on_attach,
+    default_handler = default_handler,
 }
