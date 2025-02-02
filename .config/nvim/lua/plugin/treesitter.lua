@@ -4,7 +4,7 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 require("nvim-treesitter.configs").setup({
-    ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "regex" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
