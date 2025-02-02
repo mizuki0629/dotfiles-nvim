@@ -10,7 +10,6 @@ end
 if vim.fn.executable("python3") == 1 and vim.fn.executable("pip3") == 1 then
     table.insert(ensure_installed, "black") -- python formatter
     table.insert(ensure_installed, "isort") -- python import sort
-    table.insert(ensure_installed, "ruff")  -- python linter
 end
 
 if vim.fn.executable("go") == 1 then
@@ -33,7 +32,6 @@ null_ls.setup({
         null_ls.builtins.formatting.isort,
         null_ls.builtins.formatting.gofumpt,
         null_ls.builtins.formatting.goimports,
-        null_ls.builtins.diagnostics.ruff,
         null_ls.builtins.diagnostics.golangci_lint,
     },
 })
