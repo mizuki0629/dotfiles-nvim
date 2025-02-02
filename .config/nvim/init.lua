@@ -1,7 +1,7 @@
 vim.cmd([[filetype plugin indent on]])
 vim.cmd([[syntax on]])
 vim.g.mapleader = " "
-vim.opt.mouse = nil
+vim.opt.mouse = ""
 vim.opt.number = true
 vim.opt.termguicolors = true
 vim.opt.expandtab = true
