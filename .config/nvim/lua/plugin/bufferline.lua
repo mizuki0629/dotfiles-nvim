@@ -1,6 +1,6 @@
 vim.opt.termguicolors = true
-local bufferline = require('bufferline')
-bufferline.setup{
+local bufferline = require("bufferline")
+bufferline.setup({
     options = {
         right_mouse_command = nil,
         middle_mouse_command = "bdelete! %d",
@@ -11,11 +11,11 @@ bufferline.setup{
             return " " .. icon .. count
         end,
         always_show_bufferline = true,
-    }
-}
+    },
+})
 
-require("which-key").register({
-    ["<C-l>"] = { "<cmd>BufferLineCycleNext<cr>", "Buffer Next" },
-    ["<C-h>"] = { "<cmd>BufferLineCyclePrev<cr>", "Buffer Prev" },
-    ["<C-d>"] = { "<cmd>bd<cr>", "Unload Buffer" },
-}, { })
+require("which-key").add({
+    { "<C-d>", "<cmd>bd<cr>",                  desc = "Unload Buffer" },
+    { "<C-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Buffer Prev" },
+    { "<C-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Buffer Next" },
+})

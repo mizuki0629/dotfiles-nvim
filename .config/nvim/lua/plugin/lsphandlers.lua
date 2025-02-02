@@ -42,40 +42,71 @@ local function lsp_keymaps(bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
     -- Mappings.
-    require("which-key").register({
-        ["<leader>"] = {
-            D = { vim.lsp.buf.type_definition, "Type Definition" },
-            rn = { vim.lsp.buf.rename, "Rename" },
-            l = {
-                name = "LSP",
-                D = { vim.lsp.buf.declaration, "Declaration" },
-                d = { vim.lsp.buf.definition, "Definition" },
-                i = { vim.lsp.buf.implementation, "Implementation" },
-                R = { vim.lsp.buf.rename, "Rename" },
-                r = { vim.lsp.buf.references, "References" },
-                h = { vim.lsp.buf.signature_help, "Help LSP" },
-                f = {
-                    function()
-                        vim.lsp.buf.format({ async = true })
-                    end,
-                    "Format",
-                },
-            },
-            w = {
-                name = "Workspace",
-                a = { vim.lsp.buf.add_workspace_folder, "Add Workspace Folder" },
-                r = { vim.lsp.buf.remove_workspace_folder, "Remove Workspace Folder" },
-                l = {
-                    function()
-                        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                    end,
-                    "Print Workspace Folers",
-                },
-            },
-            ca = { vim.lsp.buf.code_action, "Code Action" },
+    require("which-key").add({
+        -- LSP General Group
+        { "<leader>l", group = "LSP" },
+        {
+            "<leader>lD",
+            vim.lsp.buf.declaration,
+            desc = "LSP Declaration",
         },
-        K = { vim.lsp.buf.hover, "Hover LSP" },
-    }, { noremap = true, silent = true, buffer = bufnr })
+        {
+            "<leader>ld",
+            vim.lsp.buf.definition,
+            desc = "LSP Definition",
+        },
+        {
+            "<leader>li",
+            vim.lsp.buf.implementation,
+            desc = "LSP Implementation",
+        },
+        { "<leader>lR", vim.lsp.buf.rename, desc = "LSP Rename" },
+        {
+            "<leader>lr",
+            vim.lsp.buf.references,
+            desc = "LSP References",
+        },
+        {
+            "<leader>lh",
+            vim.lsp.buf.signature_help,
+            desc = "LSP Signature Help",
+        },
+        {
+            "<leader>lf",
+            function()
+                vim.lsp.buf.format({ async = true })
+            end,
+            desc = "LSP Format",
+        },
+
+        -- Workspace Management Group
+        { "<leader>lw", group = "Workspace" },
+        {
+            "<leader>lwa",
+            vim.lsp.buf.add_workspace_folder,
+            desc = "Add Workspace Folder",
+        },
+        {
+            "<leader>lwr",
+            vim.lsp.buf.remove_workspace_folder,
+            desc = "Remove Workspace Folder",
+        },
+        {
+            "<leader>lwl",
+            function()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+            end,
+            desc = "List Workspace Folders",
+        },
+
+        -- Other LSP mappings
+        {
+            "<leader>ca",
+            vim.lsp.buf.code_action,
+            desc = "Code Action",
+        },
+        { "K", vim.lsp.buf.hover, desc = "Hover LSP" },
+    })
 end
 
 -- Use an on_attach function to only map the following keys
@@ -96,12 +127,12 @@ local function on_attach(args)
             vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
         end
 
-        local status_ok, illuminate = pcall(require, "illuminate")
-        if not status_ok then
-            error("Failed to load illuminate" .. illuminate)
-            return
-        end
-        illuminate.on_attach(client)
+        -- local status_ok, illuminate = pcall(require, "illuminate")
+        -- if not status_ok then
+        --     error("Failed to load illuminate" .. illuminate)
+        --     return
+        -- end
+        -- illuminate.on_attach(client)
     end
 end
 

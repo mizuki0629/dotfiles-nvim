@@ -70,6 +70,10 @@ return require("lazy").setup({
     },
     {
         "folke/which-key.nvim",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+            "echasnovski/mini.icons",
+        },
         event = "VeryLazy",
         config = config("which-key"),
     },
@@ -133,16 +137,18 @@ return require("lazy").setup({
         },
         tag = "0.1.4",
         init = function()
-            require("which-key").register({
-                f = {
-                    name = "telescope",
-                    f = { "<cmd>Telescope frecency<cr>", "frecency" },
-                    o = { "<cmd>Telescope find_files find_command=rg,--files,--hidden,--glob,!*.git<CR>", "find files" },
-                    ["/"] = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
-                    b = { "<cmd>Telescope buffers<cr>", "Buffers" },
-                    z = { "<cmd>Telescope zoxide list<cr>", "Zoxide" },
+            require("which-key").add({
+                { "<leader>f",  group = "telescope" },
+                { "<leader>f/", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+                { "<leader>fb", "<cmd>Telescope buffers<cr>",   desc = "Buffers" },
+                { "<leader>ff", "<cmd>Telescope frecency<cr>",  desc = "frecency" },
+                {
+                    "<leader>fo",
+                    "<cmd>Telescope find_files find_command=rg,--files,--hidden,--glob,!*.git<CR>",
+                    desc = "find files",
                 },
-            }, { prefix = "<leader>" })
+                { "<leader>fz", "<cmd>Telescope zoxide list<cr>", desc = "Zoxide" },
+            })
         end,
         cmd = "Telescope",
         config = config("telescope"),
