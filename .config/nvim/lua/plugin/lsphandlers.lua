@@ -1,7 +1,7 @@
 local signs = {
     { name = "DiagnosticSignError", text = " " },
     { name = "DiagnosticSignWarn", text = " " },
-    { name = "DiagnosticSignHint", text = " " },
+    { name = "DiagnosticSignHint", text = " " },
     { name = "DiagnosticSignInfo", text = " " },
 }
 
@@ -12,7 +12,7 @@ end
 local config = {
     virtual_text = true, -- disable virtual text
     signs = {
-        active = signs, -- show signs
+        active = signs,  -- show signs
     },
     update_in_insert = false,
     underline = true,
@@ -44,7 +44,7 @@ local function lsp_keymaps(bufnr)
     -- Mappings.
     require("which-key").add({
         -- LSP General Group
-        { "<leader>l", group = "LSP" },
+        { "<leader>l",  group = "LSP" },
         {
             "<leader>lD",
             vim.lsp.buf.declaration,
@@ -105,7 +105,7 @@ local function lsp_keymaps(bufnr)
             vim.lsp.buf.code_action,
             desc = "Code Action",
         },
-        { "K", vim.lsp.buf.hover, desc = "Hover LSP" },
+        { "K",          vim.lsp.buf.hover,  desc = "Hover LSP" },
     })
 end
 

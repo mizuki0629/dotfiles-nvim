@@ -117,9 +117,6 @@ return require("lazy").setup({
 
     {
         "nvim-treesitter/nvim-treesitter",
-        dependencies = {
-            "p00f/nvim-ts-rainbow",
-        },
         build = ":TSUpdate",
         event = "VeryLazy",
         config = config("treesitter"),
@@ -138,10 +135,10 @@ return require("lazy").setup({
         tag = "0.1.4",
         init = function()
             require("which-key").add({
-                { "<leader>f",  group = "telescope" },
+                { "<leader>f", group = "telescope" },
                 { "<leader>f/", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-                { "<leader>fb", "<cmd>Telescope buffers<cr>",   desc = "Buffers" },
-                { "<leader>ff", "<cmd>Telescope frecency<cr>",  desc = "frecency" },
+                { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+                { "<leader>ff", "<cmd>Telescope frecency<cr>", desc = "frecency" },
                 {
                     "<leader>fo",
                     "<cmd>Telescope find_files find_command=rg,--files,--hidden,--glob,!*.git<CR>",
@@ -164,6 +161,9 @@ return require("lazy").setup({
     },
     {
         "lukas-reineke/indent-blankline.nvim",
+        dependencies = {
+            "HiPhish/rainbow-delimiters.nvim",
+        },
         event = "VeryLazy",
         config = config("indent-blankline"),
     },
@@ -215,20 +215,20 @@ return require("lazy").setup({
     {
         "rktjmp/lush.nvim",
     },
-    {
-        "rcarriga/nvim-notify",
-        event = "VeryLazy",
-        config = config("notify"),
-    },
-    {
-        "folke/noice.nvim",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
-        },
-        event = "VeryLazy",
-        config = config("noice"),
-    },
+    -- {
+    --     "rcarriga/nvim-notify",
+    --     event = "VeryLazy",
+    --     config = config("notify"),
+    -- },
+    -- {
+    --     "folke/noice.nvim",
+    --     dependencies = {
+    --         "MunifTanjim/nui.nvim",
+    --         "rcarriga/nvim-notify",
+    --     },
+    --     event = "VeryLazy",
+    --     config = config("noice"),
+    -- },
     {
         "akinsho/toggleterm.nvim",
         version = "*",
