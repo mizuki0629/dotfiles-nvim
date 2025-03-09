@@ -1,11 +1,11 @@
 local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
 local z_utils = require("telescope._extensions.zoxide.utils")
-require('neoclip').setup()
+require("neoclip").setup()
 
 local open_in_nvim_tree = function(prompt_bufnr)
-    local action_state = require "telescope.actions.state"
-    local Path = require "plenary.path"
+    local action_state = require("telescope.actions.state")
+    local Path = require("plenary.path")
 
     local entry = action_state.get_selected_entry()[1]
     local entry_path = Path:new(entry):parent():absolute()
@@ -90,7 +90,7 @@ telescope.setup({
                         end,
                         after_action = function(selection)
                             print("Directory changed to " .. selection.path)
-                        end
+                        end,
                     },
                     ["<C-s>"] = { action = z_utils.create_basic_command("split") },
                     ["<C-v>"] = { action = z_utils.create_basic_command("vsplit") },
@@ -99,21 +99,21 @@ telescope.setup({
                         keepinsert = true,
                         action = function(selection)
                             builtin.file_browser({ cwd = selection.path })
-                        end
+                        end,
                     },
                     ["<C-f>"] = {
                         keepinsert = true,
                         action = function(selection)
                             builtin.find_files({ cwd = selection.path })
-                        end
+                        end,
                     },
                     ["<C-t>"] = {
                         action = function(selection)
                             vim.cmd.tcd(selection.path)
-                        end
+                        end,
                     },
-                }
-            }
+                },
+            },
         },
         file_browser = {
             -- disables netrw and use telescope-file-browser in its place
@@ -122,8 +122,8 @@ telescope.setup({
     },
 })
 
-telescope.load_extension('zoxide')
-telescope.load_extension('neoclip')
-telescope.load_extension('file_browser')
-telescope.load_extension('frecency')
-telescope.load_extension('notify')
+telescope.load_extension("zoxide")
+telescope.load_extension("neoclip")
+telescope.load_extension("file_browser")
+telescope.load_extension("frecency")
+-- telescope.load_extension('notify')

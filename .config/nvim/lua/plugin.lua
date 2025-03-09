@@ -163,6 +163,7 @@ return require("lazy").setup({
         "lukas-reineke/indent-blankline.nvim",
         dependencies = {
             "HiPhish/rainbow-delimiters.nvim",
+            "gbprod/nord.nvim",
         },
         event = "VeryLazy",
         config = config("indent-blankline"),

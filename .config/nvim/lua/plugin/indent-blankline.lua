@@ -1,24 +1,26 @@
 require("ibl").setup({})
+
 local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
+    "Rainbow1",
+    "Rainbow2",
+    "Rainbow3",
+    "Rainbow4",
+    "Rainbow5",
+    -- "Rainbow6",
+    -- "Rainbow7",
 }
 local hooks = require("ibl.hooks")
 -- create the highlight groups in the highlight setup hook, so they are reset
 -- every time the colorscheme changes
+local colors = require("nord.colors")
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+    vim.api.nvim_set_hl(0, "Rainbow1", { fg = colors.palette.aurora.red })
+    vim.api.nvim_set_hl(0, "Rainbow2", { fg = colors.palette.aurora.orange })
+    vim.api.nvim_set_hl(0, "Rainbow3", { fg = colors.palette.aurora.yellow })
+    vim.api.nvim_set_hl(0, "Rainbow4", { fg = colors.palette.aurora.green })
+    vim.api.nvim_set_hl(0, "Rainbow5", { fg = colors.palette.aurora.purple })
+    -- vim.api.nvim_set_hl(0, "Rainbow6", { fg = colors.palette.aurora.red })
+    -- vim.api.nvim_set_hl(0, "Rainbow7", { fg = colors.palette.aurora.red })
 end)
 
 vim.g.rainbow_delimiters = { highlight = highlight }
