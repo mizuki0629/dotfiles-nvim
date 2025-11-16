@@ -19,7 +19,7 @@ require("mason-lspconfig").setup({
 })
 
 local lsphandlers = require("plugin.lsphandlers")
-require("mason-lspconfig").setup_handlers({
+require("mason-lspconfig").setup({
     lsphandlers.default_handler,
     lua_ls = lsphandlers.make_handler({
         Lua = {

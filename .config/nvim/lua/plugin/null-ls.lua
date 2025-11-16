@@ -12,12 +12,6 @@ if vim.fn.executable("python3") == 1 and vim.fn.executable("pip3") == 1 then
     table.insert(ensure_installed, "isort") -- python import sort
 end
 
-if vim.fn.executable("go") == 1 then
-    table.insert(ensure_installed, "gofumpt")       -- go formatter
-    table.insert(ensure_installed, "goimports")     -- go import sort
-    table.insert(ensure_installed, "golangci-lint") -- go linter
-end
-
 require("mason-null-ls").setup({
     ensure_installed = ensure_installed,
 })
@@ -30,8 +24,5 @@ null_ls.setup({
         null_ls.builtins.diagnostics.stylelint,
         null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.isort,
-        null_ls.builtins.formatting.gofumpt,
-        null_ls.builtins.formatting.goimports,
-        null_ls.builtins.diagnostics.golangci_lint,
     },
 })
