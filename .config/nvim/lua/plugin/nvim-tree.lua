@@ -67,8 +67,8 @@ require("nvim-tree").setup({
     on_attach = on_attach,
     sync_root_with_cwd = true,
     renderer = {
-        highlight_git = true,
-        highlight_diagnostics = true,
+        highlight_git = "all",
+        highlight_diagnostics = "all",
         icons = {
             web_devicons = {
                 file = {

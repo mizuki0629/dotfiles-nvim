@@ -25,36 +25,6 @@ return require("lazy").setup({
         config = config("nordtheme"),
     },
     {
-        "williamboman/mason.nvim",
-        build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-        cmd = {
-            "Mason",
-            "MasonInstall",
-            "MasonUninstall",
-            "MasonUninstallAll",
-            "MasonLog",
-            "MasonUpdate",
-        },
-        config = config("mason"),
-    },
-    {
-        "jay-babu/mason-null-ls.nvim",
-        dependencies = {
-            "williamboman/mason.nvim",
-            "nvimtools/none-ls.nvim",
-        },
-        event = { "BufReadPre", "BufNewFile" },
-        config = config("null-ls"),
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        dependencies = {
-            "williamboman/mason.nvim",
-        },
-        event = { "BufReadPre", "BufNewFile" },
-        config = config("lspconfig"),
-    },
-    {
         "neovim/nvim-lspconfig",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
@@ -67,6 +37,11 @@ return require("lazy").setup({
             "nvim-lua/plenary.nvim",
         },
         event = { "BufReadPre", "BufNewFile" },
+    },
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {},
     },
     {
         "folke/which-key.nvim",
@@ -117,6 +92,7 @@ return require("lazy").setup({
 
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
         build = ":TSUpdate",
         event = "VeryLazy",
         config = config("treesitter"),
@@ -251,5 +227,9 @@ return require("lazy").setup({
             "ColorizerReloadAllBuffers",
             "ColorizerToggle",
         },
+    },
+    {
+        "stevearc/dressing.nvim",
+        opts = {},
     },
 })

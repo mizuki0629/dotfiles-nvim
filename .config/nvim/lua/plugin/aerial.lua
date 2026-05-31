@@ -11,3 +11,5 @@ require("aerial").setup({
         vim.keymap.set('n', '<c-j>', '<cmd>AerialNext<CR>', {buffer = bufnr})
     end,
 })
+
+vim.keymap.set("n", "<leader>aa", "<cmd>AerialToggle!<CR>")

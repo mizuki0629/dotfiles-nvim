@@ -2,6 +2,7 @@ vim.opt.termguicolors = true
 local bufferline = require("bufferline")
 bufferline.setup({
     options = {
+        mode = "tabs",
         right_mouse_command = nil,
         middle_mouse_command = "bdelete! %d",
         style_preset = bufferline.style_preset.no_italic,

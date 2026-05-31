@@ -1,27 +1,27 @@
--- vim.cmd([[TSUpdate]])
+local ts = require("nvim-treesitter")
+ts.setup({})
+ts.install({
+    "c",
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "regex",
+})
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function(args)
+        local ft = vim.bo[args.buf].filetype
 
-require("nvim-treesitter.configs").setup({
-    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "regex" },
+        -- 必要なら無効化
+        if ft == "yaml" then
+            return
+        end
 
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
+        pcall(vim.treesitter.start, args.buf)
 
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    auto_install = true,
-
-    highlight = {
-        enable = true,
-
-        additional_vim_regex_highlighting = false,
-    },
-    indent = { enable = true, disable = { "yaml" } },
-    rainbow = {
-        enable = true,
-        extended_mode = true,
-        max_file_lines = nil,
-    },
+        -- treesitter fold を使うなら
+        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.wo.foldmethod = "expr"
+    end,
 })

@@ -31,4 +31,7 @@ if vim.fn.executable("python3") == 1 then
 end
 
 require("plugin")
+require("core.diagnostic")
 require("core.keymaps")
+require("lsp")
+require("lang.rust")
